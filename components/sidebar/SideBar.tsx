@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BsBox2, BsCart2, BsChevronRight } from "react-icons/bs";
 
@@ -13,7 +13,7 @@ interface navigationType {
 function SideBar(props: Props) {
   const {} = props;
   const router = useRouter();
-  const [isActive, setIsActive] = useState("/");
+  const [isActive, setIsActive] = useState("");
   const [open, setOpen] = useState(true);
 
   const navigation: navigationType[] = [
@@ -29,10 +29,20 @@ function SideBar(props: Props) {
     },
   ];
 
+  useEffect(() => {
+    const data = localStorage.getItem("navi");
+    if (data) {
+      setIsActive(JSON.parse(data));
+    } else {
+      setIsActive("/");
+    }
+  }, []);
+
   const NavigateTo = (navi: string) => {
     setOpen(false);
     setIsActive(navi);
     router.push(navi);
+    localStorage.setItem("navi", JSON.stringify(navi));
   };
 
   return (
