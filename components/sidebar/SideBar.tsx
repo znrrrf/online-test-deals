@@ -30,6 +30,7 @@ function SideBar(props: Props) {
   ];
 
   const NavigateTo = (navi: string) => {
+    setOpen(false);
     setIsActive(navi);
     router.push(navi);
   };
@@ -37,12 +38,12 @@ function SideBar(props: Props) {
   return (
     <nav
       className={`bg-white ${
-        open ? "w-[300px]" : "w-[80px]"
-      } duration-300  h-screen `}
+        open ? "w-[250px]" : "w-[0px] md:w-[80px]"
+      } duration-300  h-screen`}
     >
       <div className=" flex w-full my-5 px-2 font-bold text-2xl">
         <div className="w-full overflow-x-hidden">
-          <div className=" w-[300px]">
+          <div className=" w-[220px]">
             {open ? (
               <h1 className="flex justify-center gap-1">
                 ONLINE <span className="text-[#3F72AF]">TEST</span>
@@ -52,7 +53,9 @@ function SideBar(props: Props) {
         </div>
         <div
           onClick={() => setOpen(!open)}
-          className={`relative flex items-center justify-center cursor-pointer -right-6  h-10 w-10  border-2 rounded-full bg-white p-3 z-50 ${
+          className={`relative flex items-center justify-center cursor-pointer ${
+            open ? "-right-6" : "-right-1 md:-right-6 "
+          }  h-10 w-10  border-2 rounded-full bg-white p-3 z-50 ${
             !open && "rotate-180"
           } text-[20px]`}
         >
@@ -60,7 +63,7 @@ function SideBar(props: Props) {
         </div>
       </div>
       <div>
-        <ul className="flex flex-col gap-5 pl-3 overflow-x-hidden">
+        <ul className="flex flex-col gap-1 pl-3 overflow-x-hidden">
           {navigation?.map((el, index) => {
             return (
               <li
